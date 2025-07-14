@@ -1,5 +1,5 @@
 biopython==1.83         # PubMed client
 python-dotenv==1.0.1    # env file loader
-ray[data]==2.12.0     # Orechestration
+ray[data]==2.47.1     # Orechestration
 orjson==3.10.2          # fast JSON dumps
 tqdm==4.66.4            # progress bar
