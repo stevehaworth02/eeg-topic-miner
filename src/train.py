@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 """
-Brick 4 – Fine-tune SciBERT with Ray Tune (two-head classifier)
+Brick 4 – Fine‑tune SciBERT with Ray Tune (two‑head classifier)
 
-  • topic_head  (4-class soft-max)     -> topic_id
-  • dl_head     (binary sigmoid)       -> uses_dl
+  • topic_head  (4‑class soft‑max)   -> topic_id
+  • dl_head     (binary sigmoid)     -> uses_dl
 
 Run:
   python src/train.py --data_dir data/tokenised --out_dir models/scibert_best
@@ -14,12 +14,17 @@ from torch.utils.data import DataLoader, Subset
 from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.metrics import f1_score, accuracy_score
 from datasets import load_from_disk
-from transformers import (
-    AutoModel, AdamW, get_cosine_schedule_with_warmup
-)
+from transformers import AutoModel, AdamW, get_cosine_schedule_with_warmup
 import ray
 from ray import tune
 from ray.air import session
+
+# ─── device auto‑detect ─────────────────────────────────────────────── ← NEW
+device = (
+    "cuda" if torch.cuda.is_available()
+    else ("mps" if torch.backends.mps.is_available() else "cpu")
+)
+print(f"▶ using device: {device}")                                        # ← NEW
 
 N_LABELS = 4  # seizure / sleep / bci / unlabeled
 
@@ -71,7 +76,7 @@ def train_loop(config):
     val_loader   = DataLoader(val_ds, batch_size=64,
                               shuffle=False, collate_fn=collate)
 
-    model = MultiHeadClassifier().to("cuda")
+    model = MultiHeadClassifier().to(device)                                   # ← NEW
     opt   = AdamW(model.parameters(), lr=config["lr"], weight_decay=config["wd"])
     sched = get_cosine_schedule_with_warmup(
         opt, num_warmup_steps=0,
@@ -82,8 +87,8 @@ def train_loop(config):
     for epoch in range(config["epochs"]):
         model.train()
         for x, yt, yd in train_loader:
-            x = {k: v.to("cuda") for k, v in x.items()}
-            yt, yd = yt.to("cuda"), yd.to("cuda")
+            x = {k: v.to(device) for k, v in x.items()}                       # ← NEW
+            yt, yd = yt.to(device), yd.to(device)                             # ← NEW
             opt.zero_grad()
             logit_t, logit_d = model(**x)
             loss = ce(logit_t, yt) + bce(logit_d, yd)
@@ -94,7 +99,7 @@ def train_loop(config):
         pt, tt, pd, td = [], [], [], []
         with torch.no_grad():
             for x, yt, yd in val_loader:
-                x = {k: v.to("cuda") for k, v in x.items()}
+                x = {k: v.to(device) for k, v in x.items()}                   # ← NEW
                 lt, ld = model(**x)
                 pt += lt.argmax(-1).cpu().tolist()
                 tt += yt.tolist()
@@ -130,7 +135,7 @@ def main(data_dir, out_dir):
         tune_config=tune.TuneConfig(
             metric="topic_f1", mode="max", num_samples=8
         ),
-        run_config=ray.air.RunConfig(name="scibert_multitask")  # default ~/ray_results/
+        run_config=ray.air.RunConfig(name="scibert_multitask")
     )
     results = tuner.fit()
     best_ckpt = results.get_best_result("topic_f1", "max").checkpoint
