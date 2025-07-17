@@ -1,10 +1,11 @@
-# run_pipeline.ps1  --  Cross‑platform driver for Bricks 1‑4
-# Requires PowerShell 5+ (Windows) or PowerShell Core (macOS/Linux)
+# run_pipeline.ps1  --  Cross‑platform driver for Bricks 1–4
+# Requires PowerShell 5+ (Windows) or PowerShell Core (macOS/Linux)
+
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 # ─── Choose fetcher & default parallelism ───────────────────────────
-if ($IsWindows) {
+if ($Env:OS -eq 'Windows_NT') {
   $fetchScript = "scripts\fetch_serial.py"
   $maxWorkers  = 1
 } else {
@@ -22,14 +23,19 @@ $venv  = ".venv"
 if (-not (Test-Path $venv)) {
   & $pyCmd -m venv $venv
 }
-& "$venv\Scripts\Activate.ps1"   # on non‑Windows PS Core this still works
+
+if ($Env:OS -eq 'Windows_NT') {
+  & "$venv\Scripts\Activate.ps1"
+} else {
+  . "$venv/bin/activate"
+}
 
 pip install -U pip
 pip install -r requirements.txt "numpy<2" numexpr
 
 # ---------- Load .env ------------------------------------------------------
 if (-not (Test-Path ".env")) {
-  throw ".env missing – add ENTREZ_EMAIL and NCBI_API_KEY"
+  throw ".env missing - add ENTREZ_EMAIL and NCBI_API_KEY"
 }
 Get-Content .env | ForEach-Object {
   if ($_ -match '^\s*([^#=]+?)\s*=\s*(.+)$') {
@@ -48,7 +54,7 @@ if (-not (Test-Path "data/pmids.json")) {
   Write-Host "Brick 1 already done"
 }
 
-# ---------- Brick 2: fetch abstracts --------------------------------------
+# ---------- Brick 2: fetch abstracts ---------------------------------------
 if (-not (Test-Path "data/raw.jsonl")) {
   Write-Host ">> Brick 2: fetch abstracts via $fetchScript"
   & python $fetchScript `
@@ -59,10 +65,15 @@ if (-not (Test-Path "data/raw.jsonl")) {
   Write-Host "Brick 2 already done"
 }
 
-# ---------- Brick 3: tokenize & preprocess -------------------------------
+# Brick 3: tokenize & preprocess
+if ($Env:OS -eq 'Windows_NT') {
+  $tokScript = "scripts\preprocess_tokenize_local.py"
+} else {
+  $tokScript = "src/preprocess_tokenize.py"
+}
 if (-not (Test-Path "data/tokenised")) {
-  Write-Host ">> Brick 3: preprocess_tokenize.py"
-  & python src/preprocess_tokenize.py `
+  Write-Host ">> Brick 3: preprocess_tokenize via $tokScript"
+  & python $tokScript `
       --raw_jsonl data/raw.jsonl `
       --out_dir   data/tokenised `
       --workers   $maxWorkers
@@ -71,8 +82,8 @@ if (-not (Test-Path "data/tokenised")) {
 }
 
 # ---------- Brick 4: train w/ Ray Tune ------------------------------------
-Write-Host ">> Brick 4: train.py (Ray Tune sweep)"
+Write-Host ">> Brick 4: train.py (Ray Tune sweep)"
 & python src/train.py --data_dir data/tokenised --out_dir models/scibert_best
 
 Write-Host ""
-Write-Host "✔︎ DONE – model saved to models/scibert_best" -ForegroundColor Green
+Write-Host "DONE ‑ model saved to models/scibert_best" -ForegroundColor Green

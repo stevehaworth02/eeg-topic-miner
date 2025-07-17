@@ -19,12 +19,12 @@ import ray
 from ray import tune
 from ray.air import session
 
-# ─── device auto‑detect ─────────────────────────────────────────────── ← NEW
+# ─── device auto‑detect ───────────────────────────────────────────────
 device = (
     "cuda" if torch.cuda.is_available()
-    else ("mps" if torch.backends.mps.is_available() else "cpu")
+    else ("mps" if getattr(torch.backends, 'mps', None) and torch.backends.mps.is_available() else "cpu")
 )
-print(f"▶ using device: {device}")                                        # ← NEW
+print(f"▶ using device: {device}")
 
 N_LABELS = 4  # seizure / sleep / bci / unlabeled
 
@@ -39,9 +39,10 @@ class MultiHeadClassifier(nn.Module):
         self.dl_head    = nn.Linear(hidden, 1)
 
     def forward(self, input_ids, attention_mask):
-        h_cls = self.encoder(input_ids,
-                             attention_mask=attention_mask
-                            ).last_hidden_state[:, 0]   # [CLS]
+        h_cls = self.encoder(
+            input_ids,
+            attention_mask=attention_mask
+        ).last_hidden_state[:, 0]   # [CLS]
         return self.topic_head(h_cls), self.dl_head(h_cls).squeeze(-1)
 
 
@@ -76,7 +77,7 @@ def train_loop(config):
     val_loader   = DataLoader(val_ds, batch_size=64,
                               shuffle=False, collate_fn=collate)
 
-    model = MultiHeadClassifier().to(device)                                   # ← NEW
+    model = MultiHeadClassifier().to(device)
     opt   = AdamW(model.parameters(), lr=config["lr"], weight_decay=config["wd"])
     sched = get_cosine_schedule_with_warmup(
         opt, num_warmup_steps=0,
@@ -87,8 +88,8 @@ def train_loop(config):
     for epoch in range(config["epochs"]):
         model.train()
         for x, yt, yd in train_loader:
-            x = {k: v.to(device) for k, v in x.items()}                       # ← NEW
-            yt, yd = yt.to(device), yd.to(device)                             # ← NEW
+            x = {k: v.to(device) for k, v in x.items()}
+            yt, yd = yt.to(device), yd.to(device)
             opt.zero_grad()
             logit_t, logit_d = model(**x)
             loss = ce(logit_t, yt) + bce(logit_d, yd)
@@ -99,7 +100,7 @@ def train_loop(config):
         pt, tt, pd, td = [], [], [], []
         with torch.no_grad():
             for x, yt, yd in val_loader:
-                x = {k: v.to(device) for k, v in x.items()}                   # ← NEW
+                x = {k: v.to(device) for k, v in x.items()}
                 lt, ld = model(**x)
                 pt += lt.argmax(-1).cpu().tolist()
                 tt += yt.tolist()
