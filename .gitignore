@@ -1,4 +1,13 @@
-.env
+# Virtual environments, cache, OS cruft
+.venv/
 __pycache__/
 .DS_Store
-.venv/
+.env
+*.pt
+*.npy
+*.index
+*.arrow
+data/raw.jsonl
+data/pmids.json
+data/tokenised/
+models/scibert_best/
