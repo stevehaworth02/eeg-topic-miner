@@ -1,4 +1,4 @@
-# run_pipeline.ps1  --  Cross‑platform driver for Bricks 1–4
+# run_pipeline.ps1 -- Cross‑platform driver for Bricks 1–4 (now only harvests, fetches, tokenizes, indexes)
 # Requires PowerShell 5+ (Windows) or PowerShell Core (macOS/Linux)
 
 Set-StrictMode -Version Latest
@@ -7,17 +7,18 @@ $ErrorActionPreference = "Stop"
 # ─── Choose fetcher & default parallelism ───────────────────────────
 if ($Env:OS -eq 'Windows_NT') {
   $fetchScript = "scripts\fetch_serial.py"
+  $tokScript   = "scripts/tokenize_local.py"
   $maxWorkers  = 1
 } else {
   $fetchScript = "src/fetch_abstracts.py"
+  $tokScript   = "src/preprocess_tokenize.py"
   $maxWorkers  = 8
 }
 
-# ─── Disable Ray dashboard on Windows (harmless elsewhere) ───────────
 $env:RAY_DISABLE_DASHBOARD = "1"
 
 # ---------- Python & venv ------------------------------------------------
-$pyCmd = "python"         # must be Python 3.11
+$pyCmd = "python"
 $venv  = ".venv"
 
 if (-not (Test-Path $venv)) {
@@ -65,14 +66,9 @@ if (-not (Test-Path "data/raw.jsonl")) {
   Write-Host "Brick 2 already done"
 }
 
-# Brick 3: tokenize & preprocess
-if ($Env:OS -eq 'Windows_NT') {
-  $tokScript = "scripts\preprocess_tokenize_local.py"
-} else {
-  $tokScript = "src/preprocess_tokenize.py"
-}
+# ---------- Brick 3: tokenize & preprocess ---------------------------------
 if (-not (Test-Path "data/tokenised")) {
-  Write-Host ">> Brick 3: preprocess_tokenize via $tokScript"
+  Write-Host ">> Brick 3: tokenize via $tokScript"
   & python $tokScript `
       --raw_jsonl data/raw.jsonl `
       --out_dir   data/tokenised `
@@ -81,9 +77,22 @@ if (-not (Test-Path "data/tokenised")) {
   Write-Host "Brick 3 already done"
 }
 
-# ---------- Brick 4: train w/ Ray Tune ------------------------------------
-Write-Host ">> Brick 4: train.py (Ray Tune sweep)"
-& python src/train.py --data_dir data/tokenised --out_dir models/scibert_best
+# ---------- Brick 4: build FAISS index (no retraining) ---------------------
+if (-not (Test-Path "models/scibert_best/faiss.index")) {
+  Write-Host ">> Brick 4: build_faiss_index.py (indexing with pretrained model)"
+  & python src/build_faiss_index.py
+} else {
+  Write-Host "Brick 4 already done"
+}
 
 Write-Host ""
-Write-Host "DONE ‑ model saved to models/scibert_best" -ForegroundColor Green
+Write-Host "DONE - Ready for querying with src/query_faiss_index.py" -ForegroundColor Green
+
+
+Write-Host ""
+Write-Host "NOTE: Model retraining is disabled by default. To retrain, run scripts/train_serial.py manually."
+
+Write-Host ""
+Write-Host "Launching interactive search (you can exit anytime)..."
+& python src/query_faiss_index.py
+
