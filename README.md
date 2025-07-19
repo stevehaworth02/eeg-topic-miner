@@ -79,7 +79,7 @@ Model retraining is **disabled by default** for user-friendliness, reliability, 
 - Run with **Docker** for maximum reliability (recommended for most users; handles all dependencies for you), or
 - Run with `run_pipeline.sh` if you want a **native setup** (runs directly on your system’s Python, best for users comfortable with installing dependencies).
 
-- **Warning:** Training on CPU may take hours; CUDA-compatible GPUs are strongly recommended for reasonable speed.
+- **Warning:** Training on CPU may take hours; CUDA-compatible GPUs are strongly recommended for reasonable training speed (Queries take milliseconds though!).
 
 ---
 
