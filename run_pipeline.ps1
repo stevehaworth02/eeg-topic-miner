@@ -77,6 +77,11 @@ if (-not (Test-Path "data/tokenised")) {
   Write-Host "Brick 3 already done"
 }
 
+# ---------- Brick 3.5: Fine-tune SciBERT (Optional, commented out) ---------
+# Uncomment this to retrain the model on your own data (requires a CUDA GPU!)
+# Write-Host ">> Brick 3.5: Training model (this may take hours on CPU!)"
+# & python scripts/train_serial.py --data_dir data/tokenised --out_dir models/scibert_best
+
 # ---------- Brick 4: build FAISS index (no retraining) ---------------------
 if (-not (Test-Path "models/scibert_best/faiss.index")) {
   Write-Host ">> Brick 4: build_faiss_index.py (indexing with pretrained model)"
