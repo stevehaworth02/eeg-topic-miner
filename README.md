@@ -23,6 +23,7 @@ Built with reproducible, modular MLOps for easy deployment and scaling—CI/CD c
 ## 1. Background
 
 Throughout my research endeavors, I've always sought out quality research papers within my field. With over 50,000 NIH publications, finding what I need has never been harder. Me and my labmates spend significant time digging for relevant papers. As mainstream search engines became increasingly monetized and therefore less precise, the problem grew. What if finding the right paper could be as simple as asking a question?  
+
 This project aims to provide just that: a fast, semantic search engine for the latest neuroscience, EEG, and sleep research, powered by deep learning and AI.
 
 ---
@@ -30,7 +31,7 @@ This project aims to provide just that: a fast, semantic search engine for the l
 ## 2. Technology
 
 - **Automated, Modular Pipeline:**  
-  Each step (data harvesting, preprocessing, training, indexing, querying) is script-driven and reproducible, making updates and debugging simple.
+  Each step (data harvesting, preprocessing, training, indexing, querying) is scripted and reproducible, making updates and debugging simple.
 
 - **Cross-Platform & Containerization:**  
   Runs on Windows, Mac, or Linux—and **Docker** support means users don’t have to fight with dependencies or CUDA compatibility.
