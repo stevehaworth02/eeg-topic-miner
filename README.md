@@ -1,24 +1,54 @@
 # 🧠 EEG-Topic-Miner 🧠
 
-*Powerful AI-Driven knowledge base for neurology, deep learning, and sleep research... CI/CD coming soon*
+*Powerful AI-driven knowledge base for neurology, deep learning, and sleep research.  
+Built with reproducible, modular MLOps for easy deployment and scaling—CI/CD coming soon!*
 
 ---
 
 # Table of Contents
 
-- [0. Disclaimer](#0-disclaimer)
+- [1. Background](#1-background)
+- [2. Technology](#2-technology)
+- [3. Disclaimer](#3-disclaimer)
   - [Bugs & Contact](#bugs--contact)
   - [Training Your Own Model](#training-your-own-model)
-- [1. Background](#1-background)
-- [2. Features](#2-features)
-- [3. Installation](#3-installation)
-- [4. Quick Start](#4-quick-start)
-- [5. FAQ](#5-faq)
-- [6. Acknowledgements](#6-acknowledgements)
+- [4. Features](#4-features)
+- [5. Installation](#5-installation)
+- [6. Quick Start](#6-quick-start)
+- [7. FAQ](#7-faq)
+- [8. Acknowledgements](#8-acknowledgements)
 
 ---
 
-## 0. Disclaimer
+## 1. Background
+
+Throughout my research endeavors, I've always sought out quality research papers within my field. With over 50,000 NIH publications, finding what I need has never been harder. Me and my labmates spend significant time digging for relevant papers. As Google Search became increasingly monetized and less precise, the problem grew. What if finding the right paper could be as simple as asking a question?  
+This project aims to provide just that: a fast, semantic search engine for the latest neuroscience, EEG, and sleep research, powered by deep learning and AI.
+
+---
+
+## 2. Technology
+
+This project exemplifies **MLOps** principles and modern applied AI:
+
+- **Automated, Modular Pipeline:**  
+  Each step (data harvesting, preprocessing, training, indexing, querying) is script-driven and reproducible, making updates and debugging simple.
+
+- **Cross-Platform & Containerization:**  
+  Runs on Windows, Mac, or Linux—and **Docker** support means users don’t have to fight with dependencies or CUDA compatibility.
+
+- **Pretrained Models and Artifacts:**  
+  All large artifacts (trained models, FAISS indexes, tokenized datasets) are hosted on Hugging Face, keeping the repo clean and speeding up setup.
+
+- **CI/CD-Ready:**  
+  The design allows future integration with continuous integration and deployment pipelines—automating retraining, evaluation, and deployment as new data comes in.
+
+- **User-Facing AI Search:**  
+  Our semantic search uses **SciBERT** to encode user queries and abstracts, with FAISS for blazing-fast similarity search across thousands of publications.
+
+---
+
+## 3. Disclaimer
 
 ### Bugs & Contact
 
@@ -45,10 +75,3 @@ Want to train your own model? Here’s what to do:
 - **Warning:** Training on CPU may take hours; CUDA-compatible GPUs are strongly recommended for reasonable speed.
 
 ---
-
-## 1. Background
-
-*To be completed!*
-
----
-
