@@ -1,3 +1,9 @@
+# 🧠 EEG-Topic-Miner 🧠
+
+*Powerful AI-Driven knowledge base for neurology, deep learning, and sleep research... CI/CD coming soon*
+
+---
+
 # Table of Contents
 
 - [0. Disclaimer](#0-disclaimer)
