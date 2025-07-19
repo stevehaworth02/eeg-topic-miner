@@ -95,19 +95,19 @@ Model retraining is **disabled by default** for user-friendliness, reliability, 
   Query thousands of abstracts in milliseconds with FAISS, even on a laptop.
 
 - **Zero Setup Headaches:**  
-  Get started instantly: use Docker (recommended for Mac/Linux), or Windows/PowerShell pipelines—no CUDA or messy installs required for search.
+  Get started instantly: use Docker or PowerShell for no CUDA or messy installs.
 
 - **Automatic Metadata & Weak Labels:**  
-  Each abstract is auto-tagged by topic (seizure, sleep, BCI, or unlabeled) and flagged for deep learning content—enabling smart filters and fast dataset exploration.
+  Each abstract is auto-tagged by topic (seizure, sleep, BCI, or unlabeled) and flagged for deep learning content which enable smart filters and fast dataset exploration.
 
 - **Reproducible, Modular Pipeline:**  
   Data harvesting, preprocessing, training, indexing, and querying are all broken into clear, reusable scripts—easy to update, debug, or extend.
 
 - **Cross-Platform (Windows, Mac, Linux):**  
-  Search, build, and query on any OS—just choose the right pipeline or Docker image.
+  Search, build, and query on any OS, just choose the right pipeline or Docker image.
 
 - **Future-Proof & CI/CD Ready:**  
-  The architecture is designed for continuous improvement: plug in new data, re-index, or retrain as needed (or just query if you prefer!).
+  The architecture is designed for continuous improvement: we can plug in new data, re-index, or retrain as needed (or just query if you prefer!).
 
 - **Open Source, Fully Documented:**  
   All code, scripts, and guides are open and well-commented, so you can learn, adapt, or contribute.
