@@ -82,3 +82,5 @@ Model retraining is **disabled by default** for user-friendliness, reliability, 
 - **Warning:** Training on CPU may take hours; CUDA-compatible GPUs are strongly recommended for reasonable speed.
 
 ---
+
+https://huggingface.co/sehaworth/eeg-topic-miner-model/tree/main/models
