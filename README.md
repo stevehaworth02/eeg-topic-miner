@@ -56,21 +56,29 @@ Reach out at [0218steven@gmail.com](mailto:0218steven@gmail.com) and I’ll help
 
 ### Training Your Own Model
 
-Want to train your own model? Here’s what to do:
+Model retraining is **disabled by default** for user-friendliness, reliability, and fast setup.
 
-- You’ll need **significant compute power** (expect very long runtimes on CPU, recommend using a CUDA-compatible GPU).
-- The training pipeline is set up in `run_pipeline.ps1` (Windows/PowerShell) and `run_pipeline.sh` (Linux/Mac/Docker).
-- To retrain:  
-  - Make sure your data is prepared and in the correct format.
-  - Run the training step manually:  
-    - On Windows:  
-      ```
-      python scripts/train_serial.py --data_dir data/tokenised --out_dir models/scibert_best
-      ```
-    - On Linux/Mac:  
-      ```
-      python src/train.py --data_dir data/tokenised --out_dir models/scibert_best
-      ```
+**If you want to train your own model:**
+- **Uncomment** the training command in your platform’s pipeline file:
+  - In `run_pipeline.ps1` (Windows/PowerShell)
+  - In `run_pipeline.sh` (Linux/Mac/Docker)
+- Or, you may run the training script manually:
+  - **Windows:**
+    ```powershell
+    python scripts/train_serial.py --data_dir data/tokenised --out_dir models/scibert_best
+    ```
+  - **Linux/Mac/Docker:**
+    ```bash
+    python src/train.py --data_dir data/tokenised --out_dir models/scibert_best
+    ```
+- You’ll need **significant compute power** (expect long runtimes on CPU; CUDA-compatible GPUs are strongly recommended).
+- **Note:** By default, the pipeline will use the latest pretrained models and indexes hosted on Hugging Face.
+
+**On Mac/Linux:**
+
+- Run with **Docker** for maximum reliability (recommended for most users; handles all dependencies for you), or
+- Run with `run_pipeline.sh` if you want a **native setup** (i.e., running directly on your system’s Python—best for advanced users comfortable with installing dependencies themselves).
+
 - **Warning:** Training on CPU may take hours; CUDA-compatible GPUs are strongly recommended for reasonable speed.
 
 ---
