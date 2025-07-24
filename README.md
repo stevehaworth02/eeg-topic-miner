@@ -170,12 +170,12 @@ docker run --rm \
 ### 5.6 Download pretrained model
 
 ```bash
-docker build -t eegminer-retrain .  
+docker build -t eeg-topic-miner .  
 # Run (must have .env in cwd)
 docker run --rm \
   --env-file .env \
   -v "$(pwd)":/workspace \
-  eegminer-retrain
+  eeg-topic-miner
 ```
 
 ---
