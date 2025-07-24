@@ -117,12 +117,25 @@ Model retraining is **disabled by default** for user-friendliness, reliability, 
 ---
 ## 5. Installation
 
+### 5.0 Requirements
+
+Before installation, ensure the following are installed on your system:
+
+- [Python 3.11+](https://www.python.org/downloads/)
+- [Docker](https://www.docker.com/) (for containerized setup)
+- [Git](https://git-scm.com/) (for cloning the repo)
+- (Optional) [Git LFS](https://git-lfs.com/) (if downloading large Hugging Face files manually)
+
+---
+
 ### 5.1 Clone the repo
 
 ```bash
-git clone https://github.com/sehaworth/eeg-topic-miner.git](https://github.com/stevehaworth02/eeg-topic-miner.git)
+git clone https://github.com/stevehaworth02/eeg-topic-miner.git
 cd eeg-topic-miner
 ```
+
+---
 
 ### 5.2 Create your credentials file
 
@@ -133,48 +146,45 @@ cp .env.example .env
 #   NCBI_API_KEY=your_key
 ```
 
+---
+
 ### 5.3 Native install (macOS / Linux)
 
 ```bash
-# 1) Python 3.11+ & venv
+# 1) Create virtual environment
 python3.11 -m venv .venv
 source .venv/bin/activate
 
-# 2) Upgrade pip & install deps
+# 2) Install dependencies
 pip install --upgrade pip
 pip install -r requirements.txt "numpy<2" numexpr
 ```
+
+---
 
 ### 5.4 Native install (Windows / PowerShell)
 
 ```powershell
-# 1) venv
+# 1) Create virtual environment
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 
-# 2) deps
+# 2) Install dependencies
 pip install --upgrade pip
 pip install -r requirements.txt "numpy<2" numexpr
 ```
 
-### 5.5 Alternatively, Docker install
+---
+
+### 5.5 Docker install (Recommended)
+
+This method downloads and runs the **fully pretrained version only** — retraining is not included.
 
 ```bash
-# Build
-docker build -f Dockerfile.retrain -t eegminer-retrain .
+# Build the Docker image
+docker build -t eeg-topic-miner .
 
-# Run (must have .env in cwd)
-docker run --rm \
-  --env-file .env \
-  -v "$(pwd)":/workspace \
-  eegminer-retrain
-```
-
-### 5.6 Download pretrained model
-
-```bash
-docker build -t eeg-topic-miner .  
-# Run (must have .env in cwd)
+# Run the container (requires .env in current directory)
 docker run --rm \
   --env-file .env \
   -v "$(pwd)":/workspace \
@@ -183,7 +193,7 @@ docker run --rm \
 
 ---
 
-Once you’ve done **5**, you’re ready for **6. Quick Start**—running the pipeline or spin up the demo server.
+
 
 
 
