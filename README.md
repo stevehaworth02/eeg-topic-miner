@@ -112,5 +112,73 @@ Model retraining is **disabled by default** for user-friendliness, reliability, 
   All code, scripts, and guides are open and well-commented, so you can learn, adapt, or contribute.
 
 ---
+## 5. Installation
 
-https://huggingface.co/sehaworth/eeg-topic-miner-model/tree/main/models
+### 5.1 Clone the repo
+
+```bash
+git clone https://github.com/sehaworth/eeg-topic-miner.git
+cd eeg-topic-miner
+```
+
+### 5.2 Create your credentials file
+
+```bash
+cp .env.example .env
+# then edit .env and add:
+#   ENTREZ_EMAIL=your@email
+#   NCBI_API_KEY=your_key
+```
+
+### 5.3 Native install (macOS / Linux)
+
+```bash
+# 1) Python 3.11+ & venv
+python3.11 -m venv .venv
+source .venv/bin/activate
+
+# 2) Upgrade pip & install deps
+pip install --upgrade pip
+pip install -r requirements.txt "numpy<2" numexpr
+```
+
+### 5.4 Native install (Windows / PowerShell)
+
+```powershell
+# 1) venv
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+
+# 2) deps
+pip install --upgrade pip
+pip install -r requirements.txt "numpy<2" numexpr
+```
+
+### 5.5 Alternatively, Docker install
+
+```bash
+# Build
+docker build -f Dockerfile.retrain -t eegminer-retrain .
+
+# Run (must have .env in cwd)
+docker run --rm \
+  --env-file .env \
+  -v "$(pwd)":/workspace \
+  eegminer-retrain
+```
+
+### 5.6 Download pretrained model
+
+```bash
+# Clone the pretrained SciBERT fine-tuned checkpoint
+# into your models directory so you can run queries
+# without retraining
+mkdir -p models/scibert_best
+git clone https://huggingface.co/sehaworth/eeg-topic-miner-model models/scibert_best
+```
+
+---
+
+Once you’ve done **5**, you’re ready for **6. Quick Start**—running the pipeline or spin up the demo server.
+
+
