@@ -210,7 +210,88 @@ docker run --rm \
 ```
 
 ---
+## 6. Quick Start
 
+Once you've completed [Installation](#5-installation), you're ready to run the full semantic search pipeline and explore EEG-related PubMed abstracts using the pretrained SciBERT model.
+
+---
+
+### 🐳 Docker 
+
+This is the most reliable way to run the pipeline. Make sure you have:
+
+- The `models/scibert_best/` folder downloaded from Hugging Face
+- A valid `.env` file with your NCBI credentials
+
+Then simply run:
+
+```bash
+docker run --rm \
+  --env-file .env \
+  -v "$(pwd)":/workspace \
+  eeg-topic-miner
+```
+
+This will:
+- Load your `.env` for PubMed access
+- Use the pretrained SciBERT model (no retraining)
+- Harvest → Fetch → Tokenize → Index abstracts
+- Launch the interactive query tool
+
+> 🔒 Note: This image **does not support retraining**. It will ignore edits to `config/queries.txt` unless you retrain manually
+
+---
+
+### 💻 macOS / Linux (Native)
+
+If you're not using Docker, you can run the native pipeline using:
+
+```bash
+bash run_pipeline.sh
+```
+
+This will:
+- Create a virtual environment (if not present)
+- Install dependencies
+- Load your `.env` credentials
+- Harvest → Fetch → Tokenize → Index abstracts
+- Launch the query tool: `src/query_faiss_index.py`
+
+---
+
+### 🪟 Windows (PowerShell)
+
+For Windows users running natively, use PowerShell:
+
+```powershell
+.\run_pipeline.ps1
+```
+
+This does the same as the macOS/Linux pipeline:
+- Creates and activates a virtual environment
+- Installs dependencies
+- Loads your `.env`
+- Runs Bricks 1–4 (harvest, fetch, tokenize, index)
+- Starts the interactive search tool
+
+---
+
+At the end of any of these options, you’ll see:
+
+```
+DONE – Ready for querying with src/query_faiss_index.py
+Launching interactive search...
+```
+
+You can now enter free-text queries like:
+
+```
+> deep learning seizure detection
+> sleep stage classification EEG
+> brain-computer interface LSTM
+```
+
+And receive the most semantically similar neuroscience papers from the index
 
 
 
