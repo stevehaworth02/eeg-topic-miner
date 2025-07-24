@@ -294,6 +294,11 @@ You can now enter free-text queries like:
 And receive the most semantically similar neuroscience papers from the index
 
 
+## 7. Demo
+
+Click below to watch a short demo of the EEG Topic Miner in action:
+
+[![Watch the demo](https://img.youtube.com/vi/your_video_id/hqdefault.jpg)](https://www.youtube.com/watch?v=your_video_id)
 
 
 
