@@ -24,9 +24,10 @@ Built with reproducible, modular MLOps for easy deployment and scaling—CI/CD c
 
 ## 1. Background
 
-Throughout my research endeavors, I've always sought out quality research papers within my field. With over 50,000 NIH publications, finding what I need has never been harder. Me and my labmates spend significant time digging for relevant papers. As mainstream search engines became increasingly monetized and therefore less precise, the problem grew. What if finding the right paper could be as simple as asking a question?  
-
-This project aims to provide just that: a fast, semantic search engine for the latest neuroscience, EEG, and sleep research, powered by deep learning and AI. Furthermore, for Systematic Reviews, a user can easily input their PubMed queries into queries.txt to retrain the model and recieve more personalized results while maintaining the filtering 
+Throughout my research endeavors, I've always sought out quality research papers in neuroscience, EEG, and sleep science. But with over 50,000 NIH publications, finding the right ones has never been harder. My labmates and I often spend hours digging through irrelevant results. As mainstream search engines became increasingly monetized, and therefore less precise, the problem only grew.
+To improve this, PubMed introduced a powerful query syntax that allows researchers to filter papers more precisely. But it came with a cost: learning an unintuitive syntax that doesn't support natural search. Students and researchers now have to memorize operators just to find papers they care about.
+What if finding the right paper could be as simple as asking a question?
+This project builds a semantic search engine on top of the existing PubMed infrastructure. I create a structured set of domain-specific queries using PubMed’s syntax, then fine-tune a SciBERT model to recognize abstracts that match those themes. This enables a natural language search that is powered by AI while preserving the filtering precision of the underlying PubMed system. No query syntax. No wasted clicks. Just fast, relevant papers tailored to your lab's research needs.
 
 ---
 
