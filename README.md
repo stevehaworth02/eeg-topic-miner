@@ -174,7 +174,7 @@ docker run --rm \
 # into your models directory so you can run queries
 # without retraining
 mkdir -p models/scibert_best
-git clone https://huggingface.co/sehaworth/eeg-topic-miner-model models/scibert_best
+git clone [https://huggingface.co/sehaworth/eeg-topic-miner-model models/scibert_best](https://huggingface.co/sehaworth/eeg-topic-miner-model)
 ```
 
 ---
