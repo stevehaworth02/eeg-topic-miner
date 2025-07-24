@@ -117,7 +117,7 @@ Model retraining is **disabled by default** for user-friendliness, reliability, 
 ### 5.1 Clone the repo
 
 ```bash
-git clone https://github.com/sehaworth/eeg-topic-miner.git
+git clone https://github.com/sehaworth/eeg-topic-miner.git](https://github.com/stevehaworth02/eeg-topic-miner.git)
 cd eeg-topic-miner
 ```
 
