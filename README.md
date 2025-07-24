@@ -156,7 +156,7 @@ cd eeg-topic-miner
 ---
 
 ### 5.3 Create your credentials file
-
+**Note:** Steps for attaining an API-Key are here: https://support.nlm.nih.gov/kbArticle/?pn=KA-05317
 ```bash
 cp .env.example .env
 # then edit .env and add:
