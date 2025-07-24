@@ -24,7 +24,7 @@ Built with reproducible, modular MLOps for easy deployment and scaling—CI/CD c
 
 Throughout my research endeavors, I've always sought out quality research papers within my field. With over 50,000 NIH publications, finding what I need has never been harder. Me and my labmates spend significant time digging for relevant papers. As mainstream search engines became increasingly monetized and therefore less precise, the problem grew. What if finding the right paper could be as simple as asking a question?  
 
-This project aims to provide just that: a fast, semantic search engine for the latest neuroscience, EEG, and sleep research, powered by deep learning and AI.
+This project aims to provide just that: a fast, semantic search engine for the latest neuroscience, EEG, and sleep research, powered by deep learning and AI. Furthermore, for Systematic Reviews, a user can easily input their PubMed queries into queries.txt to retrain the model and recieve more personalized results while maintaining the filtering 
 
 ---
 
