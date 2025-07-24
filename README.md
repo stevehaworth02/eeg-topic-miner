@@ -211,7 +211,6 @@ docker run --rm \
 
 ---
 
-Once you’ve completed **Step 5**, head to **[6. Quick Start](#6-quick-start)** to query the model or spin up the local semantic search engine.
 
 
 
