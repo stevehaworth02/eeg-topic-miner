@@ -300,7 +300,6 @@ Click below to watch a short demo of the EEG Topic Miner in action:
 
 [![Watch the demo](https://img.youtube.com/vi/your_video_id/hqdefault.jpg)](https://www.youtube.com/watch?v=your_video_id)
 
-
-
+*“Progress isn’t born from comfort — it’s coaxed from chaos and debugged into elegance.”*
 
 
