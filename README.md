@@ -123,12 +123,30 @@ Before installation, ensure the following are installed on your system:
 
 - [Python 3.11+](https://www.python.org/downloads/)
 - [Docker](https://www.docker.com/) (for containerized setup)
-- [Git](https://git-scm.com/) (for cloning the repo)
-- (Optional) [Git LFS](https://git-lfs.com/) (if downloading large Hugging Face files manually)
+- [Git](https://git-scm.com/) (for cloning the repos)
 
 ---
 
-### 5.1 Clone the repo
+### 5.1 Download pretrained model (Required)
+
+This project uses a pretrained SciBERT model hosted on Hugging Face. You must manually download it **before building the Docker image or running the native pipeline**.
+
+```bash
+# Clone the pretrained model repo into models/
+git clone https://huggingface.co/stevehaworth02/eeg-topic-miner-model models/scibert_best
+```
+
+> 📁 Make sure the cloned folder is located at:  
+> `./models/scibert_best/` inside your repo root.
+
+This folder should contain:
+- `best_model.pt`
+- `faiss.index`
+- `faiss_meta.npy`
+
+---
+
+### 5.2 Clone the codebase
 
 ```bash
 git clone https://github.com/stevehaworth02/eeg-topic-miner.git
@@ -137,7 +155,7 @@ cd eeg-topic-miner
 
 ---
 
-### 5.2 Create your credentials file
+### 5.3 Create your credentials file
 
 ```bash
 cp .env.example .env
@@ -148,7 +166,7 @@ cp .env.example .env
 
 ---
 
-### 5.3 Native install (macOS / Linux)
+### 5.4 Native install (macOS / Linux)
 
 ```bash
 # 1) Create virtual environment
@@ -162,7 +180,7 @@ pip install -r requirements.txt "numpy<2" numexpr
 
 ---
 
-### 5.4 Native install (Windows / PowerShell)
+### 5.5 Native install (Windows / PowerShell)
 
 ```powershell
 # 1) Create virtual environment
@@ -176,12 +194,12 @@ pip install -r requirements.txt "numpy<2" numexpr
 
 ---
 
-### 5.5 Docker install (Recommended)
+### 5.6 Docker install (Recommended)
 
-This method downloads and runs the **fully pretrained version only** — retraining is not included.
+This method runs the **fully pretrained version only** — model retraining is not included in the image.
 
 ```bash
-# Build the Docker image
+# Build the Docker image (make sure models/scibert_best exists!)
 docker build -t eeg-topic-miner .
 
 # Run the container (requires .env in current directory)
@@ -192,6 +210,9 @@ docker run --rm \
 ```
 
 ---
+
+Once you’ve completed **Step 5**, head to **[6. Quick Start](#6-quick-start)** to query the model or spin up the local semantic search engine.
+
 
 
 
