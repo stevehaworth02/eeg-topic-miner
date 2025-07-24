@@ -4,7 +4,8 @@
 [![Made With ❤️](https://img.shields.io/badge/Made%20with-%E2%9D%A4-red)]()
 
 *Powerful AI-driven knowledge base for neurology, deep learning, and sleep research.  
-Built with reproducible, modular MLOps for easy deployment and scaling—CI/CD coming soon!*
+Built with reproducible, modular MLOps for easy deployment and scaling*
+*Coming Soon: CI/CD pipeline, user can specific number of **K** abstracts, return links, titles & PMIDs rather than just PMID*
 
 ---
 
