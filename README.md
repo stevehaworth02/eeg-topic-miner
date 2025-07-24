@@ -185,7 +185,7 @@ pip install -r requirements.txt "numpy<2" numexpr
 
 ```powershell
 # 1) Create virtual environment
-python -m venv .venv
+python3.11 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 
 # 2) Install dependencies
