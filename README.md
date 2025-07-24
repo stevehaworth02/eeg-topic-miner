@@ -1,4 +1,7 @@
 # 🧠 EEG-Topic-Miner 🧠
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Docker](https://img.shields.io/badge/container-docker-blue)](https://hub.docker.com/)
+[![Made With ❤️](https://img.shields.io/badge/Made%20with-%E2%9D%A4-red)]()
 
 *Powerful AI-driven knowledge base for neurology, deep learning, and sleep research.  
 Built with reproducible, modular MLOps for easy deployment and scaling—CI/CD coming soon!*
