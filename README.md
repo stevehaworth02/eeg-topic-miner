@@ -5,8 +5,8 @@
 
 *Powerful AI-driven knowledge base for neurology, deep learning, and sleep research.  
 Built with reproducible, modular MLOps for easy deployment and scaling*
+---
 *Coming Soon: CI/CD pipeline, user can specific number of **K** abstracts, return links, titles & PMIDs rather than just PMID*
-
 ---
 
 # Table of Contents
