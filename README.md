@@ -128,27 +128,7 @@ Before installation, ensure the following are installed on your system:
 - [Git](https://git-scm.com/) (for cloning the repos)
 
 ---
-
-### 5.1 Download pretrained model (Required)
-
-This project uses a pretrained SciBERT model hosted on Hugging Face. You must manually download it **before building the Docker image or running the native pipeline**.
-
-```bash
-# Clone the pretrained model repo into models/
-git clone https://huggingface.co/stevehaworth02/eeg-topic-miner-model models/scibert_best
-```
-
-> 📁 Make sure the cloned folder is located at:  
-> `./models/scibert_best/` inside your repo root.
-
-This folder should contain:
-- `best_model.pt`
-- `faiss.index`
-- `faiss_meta.npy`
-
----
-
-### 5.2 Clone the codebase
+### 5.1 Clone the codebase
 
 ```bash
 git clone https://github.com/stevehaworth02/eeg-topic-miner.git
@@ -165,6 +145,25 @@ cp .env.example .env
 #   ENTREZ_EMAIL=your@email
 #   NCBI_API_KEY=your_key
 ```
+
+---
+
+### 5.2 Download pretrained model (Required)
+
+This project uses a pretrained SciBERT model hosted on Hugging Face. You must manually download it **before building the Docker image or running the native pipeline**.
+
+```bash
+# Clone the pretrained model repo into models/
+git clone https://huggingface.co/stevehaworth02/eeg-topic-miner-model models/scibert_best
+```
+
+> 📁 Make sure the cloned folder is located at:  
+> `./models/scibert_best/` inside your repo root.
+
+This folder should contain:
+- `best_model.pt`
+- `faiss.index`
+- `faiss_meta.npy`
 
 ---
 
