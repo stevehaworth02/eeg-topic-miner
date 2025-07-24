@@ -16,7 +16,6 @@ Built with reproducible, modular MLOps for easy deployment and scaling—CI/CD c
 - [5. Installation](#5-installation)
 - [6. Quick Start](#6-quick-start)
 - [7. FAQ](#7-faq)
-- [8. Acknowledgements](#8-acknowledgements)
 
 ---
 
