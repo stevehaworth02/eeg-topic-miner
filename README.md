@@ -296,7 +296,7 @@ You can now enter free-text queries like:
 And receive the most semantically similar neuroscience papers from the index
 
 
-## 7. Demo
+## 7. Demo (Coming Soon)
 
 Click below to watch a short demo of the EEG Topic Miner in action:
 
