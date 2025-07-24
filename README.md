@@ -137,17 +137,6 @@ cd eeg-topic-miner
 
 ---
 
-### 5.3 Create your credentials file
-**Note:** Steps for attaining an API-Key are here: https://support.nlm.nih.gov/kbArticle/?pn=KA-05317
-```bash
-cp .env.example .env
-# then edit .env and add:
-#   ENTREZ_EMAIL=your@email
-#   NCBI_API_KEY=your_key
-```
-
----
-
 ### 5.2 Download pretrained model (Required)
 
 This project uses a pretrained SciBERT model hosted on Hugging Face. You must manually download it **before building the Docker image or running the native pipeline**.
@@ -164,6 +153,17 @@ This folder should contain:
 - `best_model.pt`
 - `faiss.index`
 - `faiss_meta.npy`
+
+---
+
+### 5.3 Create your credentials file
+**Note:** Steps for attaining an API-Key are here: https://support.nlm.nih.gov/kbArticle/?pn=KA-05317
+```bash
+cp .env.example .env
+# then edit .env and add:
+#   ENTREZ_EMAIL=your@email
+#   NCBI_API_KEY=your_key
+```
 
 ---
 
