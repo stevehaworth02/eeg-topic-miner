@@ -170,15 +170,18 @@ docker run --rm \
 ### 5.6 Download pretrained model
 
 ```bash
-# Clone the pretrained SciBERT fine-tuned checkpoint
-# into your models directory so you can run queries
-# without retraining
-mkdir -p models/scibert_best
-git clone https://huggingface.co/sehaworth/eeg-topic-miner-model/tree/main
+docker build -t eegminer-retrain .  
+# Run (must have .env in cwd)
+docker run --rm \
+  --env-file .env \
+  -v "$(pwd)":/workspace \
+  eegminer-retrain
 ```
 
 ---
 
 Once you’ve done **5**, you’re ready for **6. Quick Start**—running the pipeline or spin up the demo server.
+
+
 
 
