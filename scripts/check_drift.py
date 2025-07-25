@@ -1,7 +1,7 @@
 from src.embedder import embed_abstracts
 from scipy.spatial.distance import cosine
 import numpy as np
-import orjson, os
+import os
 
 OLD_EMBED_PATH = "models/scibert_best/weekly_embeddings.npy"
 NEW_PMIDS_PATH = "data/pmids_weekly.json"
