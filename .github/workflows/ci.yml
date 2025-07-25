@@ -1,15 +1,16 @@
-name: CI Pipeline
+name: CI and Drift Detection
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
+  schedule:
+    - cron: '0 9 * * 1'  # Every Monday at 9:00 AM UTC
 
 jobs:
   build-test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Clone repo
         uses: actions/checkout@v3
@@ -22,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt "numpy<2" numexpr ruff
+          pip install -r requirements.txt "numpy<2" numexpr ruff faiss-cpu
 
       - name: Lint code (ruff)
         run: ruff check .
@@ -31,3 +32,25 @@ jobs:
         run: |
           test -f src/harvest_pubmed.py
           test -f run_pipeline.sh
+
+  drift-check:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install faiss-cpu
+
+      - name: Run weekly drift check
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          python -m scripts.check_drift
