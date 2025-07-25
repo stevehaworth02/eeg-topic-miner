@@ -1,4 +1,3 @@
-import os
 import torch
 import faiss
 import numpy as np
@@ -70,6 +69,7 @@ print(f"Metadata saved to {META_PATH}")
 
 # ----- Optional: Quick Sanity Test -----
 # Search for the nearest neighbors of the first abstract
-D, I = index.search(embeddings[:1], 5)
-print("Nearest neighbors for the first abstract:", I[0])
-print("PMIDs for neighbors:", np.array(meta)[I[0]])
+D, indices = index.search(embeddings[:1], 5)
+print("Nearest neighbors for the first abstract:", indices[0])
+print("PMIDs for neighbors:", np.array(meta)[indices[0]])
+

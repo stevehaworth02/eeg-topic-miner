@@ -6,7 +6,10 @@ Usage:
         --query_file config/queries.txt \
         --out data/pmids.json
 """
-import argparse, json, os, time
+import argparse
+import json
+import os
+import time
 from typing import List, Dict
 from Bio import Entrez
 from dotenv import load_dotenv

@@ -44,10 +44,11 @@ def embed_query(text):
     emb = model(input_ids, attn_mask).cpu().numpy()
     return emb
 
-def print_results(I, D):
+def print_results(indices, distances):
     print("\nTop results:")
-    for rank, (idx, dist) in enumerate(zip(I[0], D[0]), 1):
+    for rank, (idx, dist) in enumerate(zip(indices[0], distances[0]), 1):
         print(f"Rank {rank}: PMID: {meta[idx]} (distance: {dist:.4f})")
+
 
 if __name__ == "__main__":
     print("EEG-Topic-Miner Semantic Search")
@@ -61,8 +62,9 @@ if __name__ == "__main__":
             continue
         try:
             emb = embed_query(query)
-            D, I = index.search(emb, TOP_N)
-            print_results(I, D)
+            distances, indices = index.search(emb, TOP_N)
+            print_results(indices, distances)
+
         except Exception as e:
             print("Error searching index:", str(e))
 

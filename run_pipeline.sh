@@ -68,6 +68,13 @@ else
   echo "Brick 3 already done"
 fi
 
+# ---------- Brick 3.5: Fine-tune SciBERT (Optional, commented out) ---------
+# Uncomment this to retrain the model on your own data (requires a CUDA GPU!)
+# echo ">> Brick 3.5: Training model (this may take hours on CPU!)"
+# python src/train.py \
+#   --data_dir data/tokenised \
+#   --out_dir  models/scibert_best
+
 # ---------- Brick 4: build FAISS index (no retraining) ---------------------
 if [[ ! -f "models/scibert_best/faiss.index" ]]; then
   echo ">> Brick 4: build_faiss_index.py (indexing with pretrained model)"

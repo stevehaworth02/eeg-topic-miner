@@ -1,7 +1,11 @@
 #!/usr/bin/env python
-import os, json, argparse, time, urllib.error
+import os
+import json
+import argparse
+import urllib.error
 from typing import Dict, Optional
-import orjson, ray
+import orjson
+import ray
 from dotenv import load_dotenv
 from Bio import Entrez
 from ray._raylet import ObjectRef 
@@ -16,8 +20,6 @@ for k in ("ENTREZ_EMAIL", "NCBI_API_KEY"):
 # ─── 2.  worker task (no progress bar) ───────────────────────
 @ray.remote(max_retries=3)
 def fetch_record(pmid: str) -> Optional[Dict]:
-    import urllib.error                 
-    from Bio import Entrez
 
     Entrez.email   = os.environ["ENTREZ_EMAIL"]
     Entrez.api_key = os.environ["NCBI_API_KEY"]

@@ -9,7 +9,11 @@ Run:
   python src/train.py --data_dir data/tokenised --out_dir models/scibert_best
 """
 from pathlib import Path
-import os, argparse, numpy as np, torch, torch.nn as nn
+import os
+import argparse
+import numpy as np
+import torch
+import torch.nn as nn
 from torch.utils.data import DataLoader, Subset
 from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.metrics import f1_score, accuracy_score
@@ -93,7 +97,9 @@ def train_loop(config):
             opt.zero_grad()
             logit_t, logit_d = model(**x)
             loss = ce(logit_t, yt) + bce(logit_d, yd)
-            loss.backward(); opt.step(); sched.step()
+            loss.backward()
+            opt.step()
+            sched.step()
 
         # ── validation ──
         model.eval()

@@ -8,8 +8,12 @@ Run:
       --out_dir models/scibert_best \
       --batch 16 --epochs 3 --lr 2e-5 --wd 0.01
 """
-from pathlib import Path
-import os, argparse, platform, numpy as np, torch, torch.nn as nn
+import os
+import argparse
+import platform
+import numpy as np
+import torch
+import torch.nn as nn
 from torch.utils.data import DataLoader, Subset
 from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.metrics import f1_score, accuracy_score

@@ -1,6 +1,7 @@
 # sanity.py
 from Bio import Entrez
-import json, os
+import json
+import os
 from dotenv import load_dotenv
 load_dotenv(dotenv_path=".env")
 
